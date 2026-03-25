@@ -5,7 +5,7 @@ const hours = [
   { day: "점심시간", time: "13:00 ~ 14:00" },
 ];
 
-const ADDRESS = "경북 포항시 남구 지곡로127번길 65";
+const ADDRESS = "포항시 남구 지곡로127번길 65";
 const PHONE = "051-xxxx-xxxx";
 const EMAIL = "phospital@gmail.com";
 
@@ -74,6 +74,7 @@ export default function LocationPage() {
                     <div key={h.day} className="flex justify-between text-sm">
                       <span className="text-gray-600 font-medium">{h.day}</span>
                       <span className={`font-semibold ${h.time === "휴진" ? "text-red-500" : "text-gray-900"}`}>
+                        <span className={`font-semibold ${h.time === "13:00 ~ 14:00" ? "text-red-500" : "text-gray-900"}`}></span>
                         {h.time}
                       </span>
                     </div>
@@ -124,9 +125,9 @@ export default function LocationPage() {
             <h2 className="text-lg font-bold text-gray-900 mb-4">교통 안내</h2>
             <div className="grid sm:grid-cols-3 gap-4">
               {[
-                { icon: "🚌", label: "버스", desc: "추후 기입 예정" },
-                { icon: "🚗", label: "자가용·주차", desc: "추후 기입 예정" },
-                { icon: "🏥", label: "주변 랜드마크", desc: "추후 기입 예정" },
+                { icon: "🚌", label: "버스", desc: "1,2,3,4 버스" },
+                { icon: "🚗", label: "자가용·주차", desc: "당일 무료 주차 지원" },
+                { icon: "🏥", label: "주변 랜드마크", desc: "포스코 공장" },
               ].map((t) => (
                 <div key={t.label} className="flex items-start gap-3">
                   <span className="text-2xl">{t.icon}</span>

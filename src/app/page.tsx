@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PromoPopup from "@/components/PromoPopup";
 
 const values = [
   {
@@ -33,6 +34,7 @@ const quickLinks = [
 export default function HomePage() {
   return (
     <div>
+      <PromoPopup />
       {/* 히어로 섹션 */}
       <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 text-white">
         <div className="max-w-5xl mx-auto px-4 py-20 md:py-28 text-center">

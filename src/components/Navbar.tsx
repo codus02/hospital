@@ -9,6 +9,7 @@ const navLinks = [
   { href: "/about", label: "병원 소개" },
   { href: "/doctors", label: "의료진" },
   { href: "/location", label: "오시는 길" },
+  { href: "/self-check", label: "자가진단하기" },
 ];
 
 export default function Navbar() {

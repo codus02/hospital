@@ -31,7 +31,7 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-3">연락처</h3>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>전화: 051-xxxx-xxxx</li>
-              <li>주소: 경북 포항시 남구 지곡로127번길 65</li>
+              <li>주소: 포항시 남구 지곡로127번길 65</li>
               <li>월~금 09:00~18:00 / 토 09:00~13:00</li>
             </ul>
           </div>
