@@ -3,26 +3,41 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-const PROMO_KEY = 'promoPopupDismissed';
-const IMAGE_KEY = 'imagePopupDismissed';
+// 원본 비율 유지, 200px 너비 기준으로 높이 계산
+const POPUPS = [
+  { src: '/pop-up.png',       alt: '마운자로·위고비 처방 안내', sessionKey: 'popup_popUp',      w: 200, h: 289 },
+  { src: '/smoke-clinic.png', alt: '금연 클리닉',               sessionKey: 'popup_smoke',      w: 200, h: 187 },
+  { src: '/student-promo.png',alt: '학생 프로모션',             sessionKey: 'popup_student',    w: 200, h: 271 },
+  { src: '/summer-promo.png', alt: '여름 할인 프로모션',        sessionKey: 'popup_summer',     w: 200, h: 246 },
+  { src: '/worker-promo.png', alt: '직장인 프로모션',           sessionKey: 'popup_worker',     w: 200, h: 283 },
+] as const;
+
+// 각 카드 배치 순서 (index 0 = 맨 뒤, index 4 = 맨 앞)
+// offset: 12px씩 앞으로 이동
+const OFFSET = 12;
+const MAX_CARD_H = 289 + 42; // pop-up 이미지 높이 + footer 높이
+const CONTAINER_W = 200 + OFFSET * (POPUPS.length - 1); // 248
+const CONTAINER_H = MAX_CARD_H + OFFSET * (POPUPS.length - 1); // 379
 
 function PopupCard({
   src,
   alt,
   sessionKey,
+  displayW,
+  displayH,
   onClose,
-  className = '',
+  style,
 }: {
   src: string;
   alt: string;
   sessionKey: string;
+  displayW: number;
+  displayH: number;
   onClose: () => void;
-  className?: string;
+  style?: React.CSSProperties;
 }) {
   return (
-    <div
-      className={`relative w-full overflow-hidden rounded-2xl bg-white shadow-2xl ${className}`}
-    >
+    <div className="absolute bg-white shadow-2xl" style={{ width: displayW, ...style }}>
       <button
         onClick={onClose}
         className="absolute top-2 right-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-black/40 text-sm text-white transition-colors hover:bg-black/60"
@@ -30,9 +45,7 @@ function PopupCard({
       >
         ✕
       </button>
-      <div className="relative w-full" style={{ aspectRatio: '3/4' }}>
-        <Image src={src} alt={alt} fill className="object-cover" />
-      </div>
+      <Image src={src} alt={alt} width={displayW} height={displayH} style={{ display: 'block', width: '100%', height: 'auto' }} />
       <div className="px-3 py-2.5">
         <button
           onClick={() => {
@@ -49,76 +62,47 @@ function PopupCard({
 }
 
 export default function PromoPopup() {
-  const [promoOpen, setPromoOpen] = useState(() => {
-    if (typeof window === 'undefined') return true;
-    return sessionStorage.getItem(PROMO_KEY) !== '1';
-  });
-  const [imageOpen, setImageOpen] = useState(() => {
-    if (typeof window === 'undefined') return true;
-    return sessionStorage.getItem(IMAGE_KEY) !== '1';
-  });
+  const [open, setOpen] = useState<boolean[]>(() =>
+    POPUPS.map((p) => {
+      if (typeof window === 'undefined') return true;
+      return sessionStorage.getItem(p.sessionKey) !== '1';
+    })
+  );
 
-  if (!promoOpen && !imageOpen) return null;
+  const anyOpen = open.some(Boolean);
+  if (!anyOpen) return null;
 
-  const both = promoOpen && imageOpen;
+  const close = (i: number) =>
+    setOpen((prev) => prev.map((v, idx) => (idx === i ? false : v)));
+
+  const closeAll = () => setOpen(POPUPS.map(() => false));
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* 배경 오버레이 */}
-      <div
-        className="absolute inset-0 bg-black/55"
-        onClick={() => {
-          setPromoOpen(false);
-          setImageOpen(false);
-        }}
-      />
-
-      {both ? (
-        /* 두 팝업 겹침 배치 — 가로 190/250px, 세로: 카드높이 + 16px 오프셋 */
-        <div
-          className="relative w-[198px] sm:w-[258px]"
-          style={{ height: 'calc(190px * 4 / 3 + 58px + 16px)' }}
-        >
-          {/* summer-promo — 뒤, 16px 아래 + 8px 오른쪽 */}
-          <div className="absolute top-10 left-15 z-10 w-[190px] opacity-90 sm:w-[250px]">
+      <div className="absolute inset-0 bg-black/55" onClick={closeAll} />
+      <div className="relative" style={{ width: CONTAINER_W, height: CONTAINER_H }}>
+        {POPUPS.map((p, i) => {
+          if (!open[i]) return null;
+          // 뒤에서 앞 순서: i=0이 맨 뒤, i=4가 맨 앞
+          const reverseI = POPUPS.length - 1 - i;
+          return (
             <PopupCard
-              src="/summer-promo.png"
-              alt="여름 할인 프로모션"
-              sessionKey={PROMO_KEY}
-              onClose={() => setPromoOpen(false)}
+              key={p.src}
+              src={p.src}
+              alt={p.alt}
+              sessionKey={p.sessionKey}
+              displayW={p.w}
+              displayH={p.h}
+              onClose={() => close(i)}
+              style={{
+                top: reverseI * OFFSET,
+                left: reverseI * OFFSET,
+                zIndex: i + 1,
+              }}
             />
-          </div>
-          {/* maunjaro — 앞, 16px 위 (top:0) */}
-          <div className="absolute top-0 left-0 z-20 w-[190px] sm:w-[250px]">
-            <PopupCard
-              src="/pop-up.png"
-              alt="마운자로·위고비 처방 안내"
-              sessionKey={IMAGE_KEY}
-              onClose={() => setImageOpen(false)}
-            />
-          </div>
-        </div>
-      ) : (
-        /* 하나만 남은 경우 — 단독 표시 */
-        <div className="relative w-[230px] sm:w-[280px]">
-          {promoOpen && (
-            <PopupCard
-              src="/summer-promo.png"
-              alt="여름 할인 프로모션"
-              sessionKey={PROMO_KEY}
-              onClose={() => setPromoOpen(false)}
-            />
-          )}
-          {imageOpen && (
-            <PopupCard
-              src="/pop-up.png"
-              alt="마운자로·위고비 처방 안내"
-              sessionKey={IMAGE_KEY}
-              onClose={() => setImageOpen(false)}
-            />
-          )}
-        </div>
-      )}
+          );
+        })}
+      </div>
     </div>
   );
 }
