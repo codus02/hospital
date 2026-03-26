@@ -7,8 +7,9 @@ import { useState } from "react";
 const navLinks = [
   { href: "/", label: "홈" },
   { href: "/about", label: "병원 소개" },
-  { href: "/doctors", label: "의료진" },
+  { href: "/doctors", label: "의료진 소개" },
   { href: "/location", label: "오시는 길" },
+  { href: "/partners", label: "제휴 혜택 모아보기" },
   { href: "/self-check", label: "자가진단하기" },
 ];
 

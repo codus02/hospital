@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "P병원 | 척추 전문 정형외과",
-  description: "경북 포항시 척추 전문 정형외과 P병원입니다.",
+  description: "포항시 척추 전문 정형외과 P병원입니다.",
 };
 
 export default function RootLayout({
