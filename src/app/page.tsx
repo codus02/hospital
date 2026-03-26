@@ -163,7 +163,7 @@ export default function HomePage() {
               Our Values
             </p>
             <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">
-              저희 병원이 추구하는 가치
+              우리 병원이 추구하는 가치
             </h2>
           </div>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4">
