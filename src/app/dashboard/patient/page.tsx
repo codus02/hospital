@@ -17,6 +17,7 @@ export default function PatientDashboard() {
   const [showExerciseVideos, setShowExerciseVideos] = useState(false);
   const [showRemoteSchedule, setShowRemoteSchedule] = useState(false);
   const [registeredSessions, setRegisteredSessions] = useState<number[]>([]);
+  const [showApptConfirm, setShowApptConfirm] = useState(false);
 
   useEffect(() => {
     if (showCallScreen) {
@@ -24,6 +25,13 @@ export default function PatientDashboard() {
       return () => clearTimeout(t);
     }
   }, [showCallScreen]);
+
+  useEffect(() => {
+    if (showApptConfirm) {
+      const t = setTimeout(() => setShowApptConfirm(false), 2000);
+      return () => clearTimeout(t);
+    }
+  }, [showApptConfirm]);
 
   const upcomingAppts = appointments.filter((a) => a.status === '예약확정');
 
@@ -60,10 +68,16 @@ export default function PatientDashboard() {
           <h2 className="mb-1 text-xl font-bold">2026년 3월 31일 (화) 10:30</h2>
           <p className="text-sm text-blue-100">한원석 원장 · 척추외과</p>
           <div className="mt-4 flex gap-2">
-            <button className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50">
+            <button
+              onClick={() => setShowApptConfirm(true)}
+              className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50"
+            >
               예약 확인
             </button>
-            <button className="rounded-full border border-blue-400 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600">
+            <button
+              onClick={() => setShowCallScreen(true)}
+              className="rounded-full border border-blue-400 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
+            >
               취소/변경 문의
             </button>
           </div>
@@ -150,6 +164,15 @@ export default function PatientDashboard() {
           </div>
         </div>
       </div>
+
+      {/* 예약 확인 토스트 */}
+      {showApptConfirm && (
+        <div className="fixed bottom-8 left-1/2 z-50 -translate-x-1/2 rounded-2xl bg-blue-700 px-6 py-4 text-center text-white shadow-2xl">
+          <p className="text-2xl mb-1">✅</p>
+          <p className="font-bold">예약이 확인되었습니다.</p>
+          <p className="mt-1 text-xs text-blue-200">2026년 3월 31일 (화) 10:30</p>
+        </div>
+      )}
 
       {/* 전화 연결 화면 */}
       {showCallScreen && (
