@@ -39,7 +39,7 @@ const quickLinks = [
   { href: "/doctors", label: "의료진 소개", icon: "👨‍⚕️", color: "bg-blue-50 group-hover:bg-blue-100" },
   { href: "/about", label: "병원 소개", icon: "🏨", color: "bg-indigo-50 group-hover:bg-indigo-100" },
   { href: "/location", label: "오시는 길", icon: "📍", color: "bg-sky-50 group-hover:bg-sky-100" },
-  { href: "/login", label: "로그인", icon: "🔐", color: "bg-teal-50 group-hover:bg-teal-100" },
+  { href: "/login", label: "제휴 업체 소개", icon: "🤝", color: "bg-teal-50 group-hover:bg-teal-100" },
 ];
 
 const specialties = [
