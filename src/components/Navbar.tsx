@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/doctors", label: "의료진 소개" },
   { href: "/location", label: "오시는 길" },
   { href: "/partners", label: "제휴 혜택 모아보기" },
+  { href: "/clinics", label: "클리닉 소개" },
   { href: "/self-check", label: "자가진단하기" },
 ];
 

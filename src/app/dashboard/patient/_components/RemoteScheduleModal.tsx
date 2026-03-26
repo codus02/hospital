@@ -37,6 +37,11 @@ export default function RemoteScheduleModal({
               </h2>
               <p className="mt-0.5 text-xs text-gray-400">
                 비대면 실시간 스트레칭 · 재활 클래스
+                
+              </p>
+              <p className="mt-0.5 text-xs text-gray-400">
+                집에서도 전문 강사와 스트레칭 · 재활해요
+                
               </p>
             </div>
             <button
