@@ -100,7 +100,21 @@ export const weekSurgeries: {
       },
     ],
   },
-  { date: '3/26', day: '목', items: [] },
+  { date: '3/26', day: '목', items: [
+    {
+        time: '09:00',
+        patient: '김대한',
+        procedure: '요추 내시경 감압술',
+        risk: 'high',
+        detail: {
+          age: '72세 (남)',
+          or: '수술실 1호',
+          anesthesia: '전신마취',
+          riskFactors: ['고혈압', '당뇨', '흡연'],
+          notes: '재발 케이스 (2022년 1차 수술). 항고혈압제 복용 중, 마취과 협진 완료.',
+        },
+      },
+  ] },
   {
     date: '3/27',
     day: '금',
@@ -118,25 +132,39 @@ export const weekSurgeries: {
           notes: '초발 급성 추간판탈출증 (L4-L5). 보존적 치료 6주 후 수술.',
         },
       },
+      {
+        time: '13:30',
+        patient: '윤사람',
+        procedure: '요추 디스크 수술',
+        risk: 'low',
+        detail: {
+          age: '41세 (남)',
+          or: '수술실 1호',
+          anesthesia: '척추마취',
+          riskFactors: ['없음'],
+          notes: '급성 추간판탈출증 (L5-S1). 보존적 치료 4주 후 증상 악화로 수술 결정.',
+        },
+      },
+      {
+        time: '15:30',
+        patient: '오환자',
+        procedure: '경추 디스크 제거술',
+        risk: 'mid',
+        detail: {
+          age: '50세 (여)',
+          or: '수술실 2호',
+          anesthesia: '전신마취',
+          riskFactors: ['고혈압'],
+          notes: '경추 5-6번 추간판탈출증. 상지 방사통 6개월 지속 후 수술.',
+        },
+      },
     ],
   },
   {
     date: '3/28',
     day: '토',
     items: [
-      {
-        time: '09:00',
-        patient: '김대한',
-        procedure: '요추 내시경 감압술',
-        risk: 'high',
-        detail: {
-          age: '72세 (남)',
-          or: '수술실 1호',
-          anesthesia: '전신마취',
-          riskFactors: ['고혈압', '당뇨', '흡연'],
-          notes: '재발 케이스 (2022년 1차 수술). 항고혈압제 복용 중, 마취과 협진 완료.',
-        },
-      },
+      
       {
         time: '14:00',
         patient: '이환자',

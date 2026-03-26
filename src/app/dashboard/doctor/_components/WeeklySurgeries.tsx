@@ -7,7 +7,7 @@ export default function WeeklySurgeries({
 }) {
   return (
     <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm md:col-span-2">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-3 flex items-center justify-between">
         <h2 className="font-bold text-gray-900">이번 주 수술 일정</h2>
         <div className="flex items-center gap-2 text-xs text-gray-500">
           <span className="flex items-center gap-1">
@@ -22,6 +22,14 @@ export default function WeeklySurgeries({
             <span className="inline-block h-2 w-2 rounded-full bg-emerald-400" />
             저위험
           </span>
+        </div>
+      </div>
+
+      <div className="mb-4 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
+        <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-200 text-sm">⚠️</span>
+        <div>
+          <p className="text-xs font-bold text-amber-800">고위험 환자 수술 일정 주의</p>
+          <p className="mt-0.5 text-xs leading-relaxed text-amber-700">고위험 환자는 하루 두 건 이상의 수술을 권하지 않습니다.</p>
         </div>
       </div>
 
@@ -49,6 +57,11 @@ export default function WeeklySurgeries({
               </div>
             </div>
             <div className="flex-1 space-y-1">
+              {day.items.length >= 3 && (
+                <p className="rounded-lg bg-red-50 px-1.5 py-1 text-center text-[10px] leading-tight text-red-600">
+                  ⚠️ 수술 과다<br />재스케줄링 권장
+                </p>
+              )}
               {day.items.length === 0 ? (
                 <p className="mt-2 text-center text-xs text-gray-200">—</p>
               ) : (
@@ -109,6 +122,11 @@ export default function WeeklySurgeries({
                 <span className="ml-auto text-xs text-gray-300">수술 없음</span>
               )}
             </div>
+            {day.items.length >= 3 && (
+              <p className="mb-1.5 rounded-lg bg-red-50 px-3 py-1.5 text-xs text-red-600">
+                ⚠️ 하루에 수술이 너무 많습니다. 재스케줄링을 권장합니다.
+              </p>
+            )}
             {day.items.length > 0 && (
               <div className="space-y-1.5">
                 {day.items.map((item, i) => (
