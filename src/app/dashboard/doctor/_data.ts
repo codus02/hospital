@@ -70,7 +70,6 @@ export const weekSurgeries: {
   {
     date: '3/25',
     day: '수',
-    today: true,
     items: [
       {
         time: '09:30',
@@ -118,6 +117,7 @@ export const weekSurgeries: {
   {
     date: '3/27',
     day: '금',
+    today: true,
     items: [
       {
         time: '11:00',

@@ -6,7 +6,7 @@ export default function WeeklySurgeries({
   onSelect: (item: SurgeryItem) => void;
 }) {
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm md:col-span-2">
+    <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
       <div className="mb-3 flex items-center justify-between">
         <h2 className="font-bold text-gray-900">이번 주 수술 일정</h2>
         <div className="flex items-center gap-2 text-xs text-gray-500">
